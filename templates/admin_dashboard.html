@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/adminstyle.css" />
+  </head>
+  <body>
+    <!--  above header  -->
+    <div class="header">
+      <div>
+        <a href="/admin/quiz"> Quiz </a>
+        |
+        <a href="/" class="logout">Logout</a>
+      </div>
+      <div>Welcome Admin</div>
+    </div>
+
+    <!-- main subjects boxes -->
+    <div class="dashboard">
+      {% for s in sub %}
+      <!-- each box  -->
+      <div class="subject-card">
+        <table>
+          <tr>
+            <th
+              colspan="3"
+              ,
+              style="text-transform: uppercase; text-decoration: underline"
+            >
+              {{ s.name }}
+            </th>
+          </tr>
+          <tr>
+            <th>Chapter Name</th>
+            <th>No. of Questions</th>
+            <th>Actions</th>
+          </tr>
+          {% for c in ch %} {% if c.subject_id == s.id %}
+          <tr>
+            <td>{{ c.name }}</td>
+            <td>
+              {% set question_count = [] %} {% for qu in qui %} {% if
+              qu.chapter_id == c.id %} {% for q in ques %} {% if q.quiz_id ==
+              qu.id %} {% set _ = question_count.append(1) %} {% endif %} {%
+              endfor %} {% endif %} {% endfor %} {{ question_count|length }}
+            </td>
+            <td>
+              <a href="/edit/ch/{{ c.id }}">Edit</a> /
+              <a href="/del/ch/{{ c.id }}" onclick="confirmDelete(event)"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          {% endif %} {% endfor %}
+        </table>
+        <a href="/chapter/add/{{ s.id }}" class="add-chapter">+ Chapter</a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Add Subject Link -->
+    <div class="add-subject">
+      <a href="{{ url_for('subjectadd') }}">+ Add Subject</a>
+    </div>
+    <!-- this is used for delete popup -->
+    <script>
+      function confirmDelete(event) {
+        alert("Chapter Deleted Successfully!");
+        window.location.href = event.target.href;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit chapter</title>
+    <link rel="stylesheet" href="/static/adminstyle.css" />
+  </head>
+  <body>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 40px;
+      "
+    >
+      <div
+        class="subject-card"
+        style="
+          text-align: center;
+          padding-top: 40px;
+          padding-bottom: 40px;
+          width: 30%;
+        "
+      >
+        <form method="post">
+          <label>Name:</label>
+          <input name="name" value="{{name}}" required />
+          <br />
+          <br />
+          <label>Description:</label>
+          <input name="desc" value="{{desc}}" required />
+          <br />
+          <br />
+          <button
+            class="fancybutton"
+            onmouseover="this.style.backgroundColor='lightblue'; this.style.color='red';"
+            onmouseout="this.style.backgroundColor=''; this.style.color='';"
+          >
+            submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

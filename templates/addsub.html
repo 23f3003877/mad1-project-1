@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>add subject</title>
+    <link rel="stylesheet" , href="/static/adminstyle.css" />
+  </head>
+  <body>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 40px;
+      "
+    >
+      <div
+        class="subject-card"
+        style="
+          text-align: center;
+          width: 30%;
+          padding-top: 20px;
+          padding-bottom: 20px;
+        "
+      >
+        <form method="post">
+          <label>Name: </label>
+          <input name="subname" required />
+          <br />
+          <br />
+          <label> Description: </label>
+          <input name="desc" required />
+          <br />
+          <br />
+          <button
+            class="fancybutton"
+            onmouseover="this.style.backgroundColor='lightblue'; this.style.color='red';"
+            onmouseout="this.style.backgroundColor=''; this.style.color='';"
+            style="font-style: italic"
+          >
+            SUBMIT
+          </button>
+        </form>
+        {% if again %}
+        <p style="color: red">subject already exists</p>
+        {% endif %}
+      </div>
+    </div>
+  </body>
+</html>

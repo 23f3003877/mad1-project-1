@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" , href="/static/adminstyle.css" />
+  </head>
+  <body>
+    <div class="welcome">
+      <h1>Welcome to Quiz Master</h1>
+      <h1>Registration</h1>
+    </div>
+
+    <div class="fieldbox">
+      <form method="post" style="text-align: center">
+        <label>Username(E-mail):</label>
+        <input name="username" , type="email" required />
+        <br />
+        <br />
+        <label>Password:</label>
+        <input name="password" , type="password" required />
+        <br />
+        <br />
+        <label>Full Name:</label>
+        <input name="fullname" required />
+        <br />
+        <br />
+        <label>Qualification:</label>
+        <input name="qualification" required />
+        <br />
+        <br />
+        <label>DOB:</label>
+        <input name="dob" , type="date" required />
+        <br />
+        <br />
+        <button
+          class="fancybutton"
+          onmouseover="this.style.backgroundColor='lightblue'; this.style.color='red';"
+          onmouseout="this.style.backgroundColor=''; this.style.color='';"
+          style="font-style: italic"
+          onclick="success()"
+        >
+          Submit
+        </button>
+      </form>
+      {% if already %}
+      <p style="color: red">User already exists</p>
+      {%endif%}
+    </div>
+    <script>
+      function success() {
+        alert("Account Created. Please Login!");
+      }
+    </script>
+  </body>
+</html>

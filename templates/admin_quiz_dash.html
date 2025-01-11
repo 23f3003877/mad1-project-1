@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    {% for q in quiz %} {% for c in ch %} {% if c.id == q.chapter_id %}
+    <p>quiz{{q.id}}({{c.name}})</p>
+    {% for qu in ques%} {% if qu.quiz_id == q.id %}
+    <p>{{qu.id}} , {{qu.question}}</p>
+    {%endif%} {%endfor%} {%endif%} {%endfor%}
+    <a href="/add/question/{{q.id}}"> add questions </a>
+    {%endfor%}
+
+    <a href="/quiz/add"> add new quiz </a>
+  </body>
+</html>
