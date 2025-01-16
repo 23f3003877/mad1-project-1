@@ -2,7 +2,7 @@
 from flask import Flask , render_template , redirect , url_for 
 # To find method of request 
 from flask import request
-from datetime import datetime
+from datetime import datetime,date
 from models import db , user , admin , subject , chapter ,scores , quiz , questions 
 
 app = Flask(__name__ )
@@ -109,6 +109,7 @@ def addquestion(qui_id):
 @app.route("/quiz/add" , methods = ["GET" , "POST"])
 def addquiz():
     if request.method == "POST":
+        name = request.form["name"]
         ch_id = request.form["chid"]
         date_str = request.form["date"]
         dat = datetime.strptime(date_str ,"%Y-%m-%d" ).date()
@@ -116,10 +117,10 @@ def addquiz():
         tim = datetime.strptime(ti , "%H:%M" ).time()
         rem = request.form["rem"] # i dont know the use of date and time will update later
 
-        db.session.add(quiz(chapter_id = ch_id , doq = dat , time = tim , remarks = rem))
+        db.session.add(quiz( name = name , chapter_id = ch_id , doq = dat , time = tim , remarks = rem))
         db.session.commit()
         return redirect("/admin/quiz")
-    return render_template("addquiz.html")
+    return render_template("addquiz.html" ,  datetime = date.today() )
 
 @app.route("/del/ch/<int:ch_id>" ,methods = ["POST" , "GET"])
 def delch(ch_id):
@@ -143,6 +144,103 @@ def editch(ch_id):
         
         return redirect("/admin/dash")
     return render_template("editch.html" , name=ch_to_edit.name , desc = ch_to_edit.description)
+
+@app.route("/admin/del/<int:sub_id>" , methods = ["GET" , "POST"])
+def delsub(sub_id):
+    sub_to_del = subject.query.get(sub_id)
+    db.session.delete(sub_to_del)
+    db.session.commit()
+    return redirect("/admin/dash")
+
+@app.route("/admin/del/quiz/<int:quiz_id>" , methods = ["GET","POST"])
+def delquiz(quiz_id):
+    quiz_to_del = quiz.query.get(quiz_id)
+    db.session.delete(quiz_to_del)
+    db.session.commit()
+    return redirect("/admin/quiz")
+
+@app.route("/admin/delques/<int:qu_id>" , methods=["GET","POST"])
+def delques(qu_id):
+    question_to_del = questions.query.get(qu_id)
+    db.session.delete(question_to_del)
+    db.session.commit()
+    return redirect("/admin/quiz")
+
+@app.route("/admin/editques/<int:qu_id>" , methods = ["GET" , "POST"])
+def editques(qu_id):
+    q_t_e = questions.query.get(qu_id)  #question to edit
+    if request.method == "POST":
+        quest = request.form["question"]
+        o1 = request.form["o1"]
+        o2 = request.form["o2"]
+        o3 = request.form["o3"]
+        o4 = request.form["o4"]
+        ans = request.form["ans"]
+        
+        q_t_e.question = quest
+        q_t_e.option1 = o1
+        q_t_e.option2 = o2
+        q_t_e.option3 = o3
+        q_t_e.option4 = o4
+        q_t_e.answer = ans
+
+        db.session.commit()
+        return redirect("/admin/quiz")
+    return render_template("editques.html" , oldquestion = q_t_e.question , oldo1 = q_t_e.option1,oldo2 = q_t_e.option2,oldo3 = q_t_e.option3,oldo4 = q_t_e.option4 , oldans = q_t_e.answer)
+
+@app.route("/admin/editsub/<int:s_id>" , methods=["GET","POST"])
+def editsub(s_id):
+    ste = subject.query.get(s_id)
+    if request.method == "POST":
+        name = request.form["name"]
+        desc = request.form["desc"]
+
+        ste.name = name
+        ste.description = desc
+        db.session.commit()
+        return redirect("/admin/dash")
+
+    return render_template("editsub.html" , oldname = ste.name , olddesc = ste.description)  
+
+@app.route("/admin/search" , methods=["GET" , "POST"])
+def adminsearch(): 
+    search = request.form['name']
+    sub = subject.query.filter_by(name = search).first()
+    qui = quiz.query.filter_by(name = search).first()
+    usr = user.query.filter_by(username = search).first()
+
+    if sub != None:
+        return render_template("search.html" , found = "subject" , name = sub.name , desc = sub.description)
+    elif qui != None:
+        return render_template("search.html" , found = "quiz" ,name =qui.name , ch_id = qui.chapter_id , date = qui.doq , duration = qui.time , remark = qui.remarks)
+    elif usr != None:
+        return render_template("search.html" , found="user" , usrname =usr.username ,fullname =usr.uname , quali = usr.qualification , dob = usr.dob.strftime('%d-%m-%Y')  )
+    
+    return render_template("search.html" , found=None)
+    
+@app.route("/admin/editquiz/<int:q_id>" , methods=["GET","POST"])
+def quizedit(q_id):
+    qte = quiz.query.get(q_id)
+    durat = qte.time
+    durat =  durat.strftime("%H:%M")
+    if request.method == "POST":
+        name = request.form["name"]
+        ch_id = request.form["chid"]
+        date_str = request.form["date"]
+        remark = request.form["rem"]
+        ti = request.form["time"]
+        tim = datetime.strptime(ti, "%H:%M").time() 
+        dat = datetime.strptime(date_str ,"%Y-%m-%d" ).date()
+        qte.name = name
+        qte.chapter_id = ch_id
+        qte.doq = dat
+        qte.time = tim
+        qte.remarks = remark
+
+        db.session.commit()
+        return redirect("/admin/quiz")
+    return render_template("editquiz.html" , name = qte.name , ch_id = qte.chapter_id , date =qte.doq , duration= durat , remark = qte.remarks )
+    
 
 
 if __name__ == "__main__":
