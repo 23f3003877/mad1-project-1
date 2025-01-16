@@ -49,6 +49,7 @@ class chapter(db.Model):
 class quiz(db.Model):
     __tablename__ = "quiz"
     id = db.Column(db.Integer , primary_key = True)
+    name = db.Column(db.String , unique = True)
     chapter_id = db.Column( db.ForeignKey("chapter.id" , ondelete = "CASCADE" ) , nullable = False)
     doq = db.Column(db.Date , nullable = False)
     time = db.Column(db.Time , nullable = False) #(hh:mm)

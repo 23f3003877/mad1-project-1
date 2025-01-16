@@ -28,11 +28,12 @@ body {
   justify-content: flex-start; /* Align elements to the left */
 }
 .subject-card {
+  box-shadow: 8px 8px 6px;
   border: 2px solid rgb(255, 128, 0);
   border-radius: 15px;
   padding: 15px;
   width: 45%; /* Make each card take about 30% of the row */
-  background-color: #f9f9f9;
+  background-color: #f9f9f900;
   box-sizing: border-box; /* Include padding and border in the width */
 }
 .subject-card table {
@@ -70,13 +71,14 @@ body {
 .add-subject {
   margin-top: 20px;
   text-align: center;
-  font-size: 1.2em;
+  font-size: 30px;
 }
 .add-subject a {
-  color: orange;
+  color: rgb(72, 0, 255);
   font-weight: bold;
   text-decoration: none;
   text-align: center;
+  font-style: normal;
 }
 
 .welcome {
@@ -90,7 +92,7 @@ body {
 .fieldbox {
   text-align: center;
   box-shadow: 8px 8px 6px;
-  background-color: rgba(178, 216, 250, 0.53);
+  background-color: rgba(164, 124, 216, 0.462);
   border: 4px solid black;
   width: 400px;
   padding-top: 40px;

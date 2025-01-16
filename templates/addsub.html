@@ -3,20 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>add subject</title>
+    <title>Add Subject</title>
     <link rel="stylesheet" , href="/static/adminstyle.css" />
   </head>
-  <body>
+  <body
+    style="
+      background-image: url('');
+      background-position-x: right;
+      background-repeat: no-repeat;
+      background-size: 100%;
+    "
+  >
+    <div class="welcome" style="padding-top: 20px">
+      <h1>Add Subject</h1>
+    </div>
     <div
       style="
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-top: 40px;
+        padding-top: 20px;
       "
     >
       <div
-        class="subject-card"
+        class="fieldbox"
         style="
           text-align: center;
           width: 30%;
@@ -39,7 +49,7 @@
             onmouseout="this.style.backgroundColor=''; this.style.color='';"
             style="font-style: italic"
           >
-            SUBMIT
+            Submit
           </button>
         </form>
         {% if again %}

@@ -3,19 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Add chapter</title>
+    <link rel="stylesheet" href="/static/adminstyle.css">
   </head>
   <body>
-    <form method="post">
-      name:
-      <input name="chname" />
-      description:
-      <input name="description" />
-      <button>submit</button>
-    </form>
-    {% if again %}
-    <p>ch already exists</p>
-    {% endif %}
+    <div class="welcome" style="padding-top: 20px">
+      <h1>Add Chapter</h1>
+    </div>
+    <div style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+  ">
+      <div class="fieldbox" style="
+      text-align: center;
+      width: 30%;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      ">
+      <form method="post">
+        <label>Name:</label>
+        <input name="chname" required />
+        <br/>
+        <br/>
+        <label>Description:</label>
+        <input name="description" required/>
+        <br/>
+        <br/>
+        <button class="fancybutton"
+        onmouseover="this.style.backgroundColor='lightblue'; this.style.color='red';"
+        onmouseout="this.style.backgroundColor=''; this.style.color='';"
+        style="font-style: italic">Submit</button>
+      </form>
+      {% if again %}
+      <p>ch already exists</p>
+      {% endif %}
+      </div>
+    </div>
   </body>
   </body>
 </html>

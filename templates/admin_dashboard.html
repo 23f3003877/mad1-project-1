@@ -5,8 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="/static/adminstyle.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
-  <body>
+  <body style="background-color: antiquewhite">
+    <br />
     <!--  above header  -->
     <div class="header">
       <div>
@@ -14,6 +24,10 @@
         |
         <a href="/" class="logout">Logout</a>
       </div>
+      <form method="post" style="padding-left: 800px" action="/admin/search">
+        <label>Search:</label>
+        <input name="name" />
+      </form>
       <div>Welcome Admin</div>
     </div>
 
@@ -25,11 +39,31 @@
         <table>
           <tr>
             <th
-              colspan="3"
-              ,
-              style="text-transform: uppercase; text-decoration: underline"
+              colspan="2"
+              style="
+                text-transform: uppercase;
+                text-decoration: underline;
+                padding-left: 80px;
+              "
             >
               {{ s.name }}
+            </th>
+            <th colspan="1">
+              <a
+                class="fa fa-edit"
+                href="/admin/editsub/{{s.id}}"
+                style="padding-right: 8px; color: blue; font-size: 25px"
+              >
+              </a>
+              /
+              <a
+                class="material-icons"
+                style="color: red"
+                href="/admin/del/{{s.id}}"
+                onclick="confirmDelete(event)"
+              >
+                delete
+              </a>
             </th>
           </tr>
           <tr>
@@ -67,7 +101,7 @@
     <!-- this is used for delete popup -->
     <script>
       function confirmDelete(event) {
-        alert("Chapter Deleted Successfully!");
+        alert("Deleted Successfully!");
         window.location.href = event.target.href;
       }
     </script>

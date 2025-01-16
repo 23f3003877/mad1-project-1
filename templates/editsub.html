@@ -3,43 +3,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Edit chapter</title>
-    <link rel="stylesheet" href="/static/adminstyle.css" />
+    <title>Edit Subject</title>
+    <link rel="stylesheet" , href="/static/adminstyle.css" />
   </head>
-  <body>
+  <body
+    style="
+      background-image: url('');
+      background-position-x: right;
+      background-repeat: no-repeat;
+      background-size: 100%;
+    "
+  >
     <div class="welcome" style="padding-top: 20px">
-      <h1>Edit Chapter Details</h1>
+      <h1>Edit Subject</h1>
     </div>
     <div
       style="
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-top: 40px;
+        padding-top: 20px;
       "
     >
       <div
         class="fieldbox"
         style="
           text-align: center;
-          padding-top: 40px;
-          padding-bottom: 40px;
           width: 30%;
+          padding-top: 20px;
+          padding-bottom: 20px;
         "
       >
         <form method="post">
-          <label>Name:</label>
-          <input name="name" value="{{name}}" required />
+          <label>Name: </label>
+          <input name="name" value="{{oldname}}" required />
           <br />
           <br />
-          <label>Description:</label>
-          <input name="desc" value="{{desc}}" required />
+          <label> Description: </label>
+          <input name="desc" value="{{olddesc}}" required />
           <br />
           <br />
           <button
             class="fancybutton"
             onmouseover="this.style.backgroundColor='lightblue'; this.style.color='red';"
             onmouseout="this.style.backgroundColor=''; this.style.color='';"
+            style="font-style: italic"
           >
             Submit
           </button>
