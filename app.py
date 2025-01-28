@@ -4,7 +4,7 @@ from flask import Flask , render_template , redirect , url_for
 from flask import request
 from datetime import datetime,date
 from models import db , user , admin , subject , chapter ,scores , quiz , questions 
-
+from sqlalchemy import desc
 app = Flask(__name__ )
 
 #path to database
@@ -28,7 +28,7 @@ def home():
         users = user.query.all()
         for use in users:
             if request.form["username"] == use.username and request.form["password"] == use.password:
-                return render_template("user_dashboard")
+                return redirect(f"/user/dashboard/{use.id}")
         # failed is user to write a error message for try again
         return render_template("index.html" , failed = True)
     return render_template("index.html" , failed = False)
@@ -100,8 +100,8 @@ def addquestion(qui_id):
         o3 = request.form["o3"]
         o4 = request.form["o4"]
         ans = request.form["ans"]
-
-        db.session.add(questions(quiz_id = qui_id , question = quest , option1 = o1 , option2 = o2, option3 = o3, option4 = o4 , answer = ans))
+        mark = request.form["mark"]
+        db.session.add(questions(quiz_id = qui_id , marks = mark , question = quest , option1 = o1 , option2 = o2, option3 = o3, option4 = o4 , answer = ans))
         db.session.commit()
         return redirect("/admin/quiz")
     return render_template("addquestion.html")
@@ -176,6 +176,7 @@ def editques(qu_id):
         o3 = request.form["o3"]
         o4 = request.form["o4"]
         ans = request.form["ans"]
+        mark = request.form["mark"]
         
         q_t_e.question = quest
         q_t_e.option1 = o1
@@ -183,10 +184,11 @@ def editques(qu_id):
         q_t_e.option3 = o3
         q_t_e.option4 = o4
         q_t_e.answer = ans
+        q_t_e.marks = mark
 
         db.session.commit()
         return redirect("/admin/quiz")
-    return render_template("editques.html" , oldquestion = q_t_e.question , oldo1 = q_t_e.option1,oldo2 = q_t_e.option2,oldo3 = q_t_e.option3,oldo4 = q_t_e.option4 , oldans = q_t_e.answer)
+    return render_template("editques.html" , oldquestion = q_t_e.question , oldmark = q_t_e.marks , oldo1 = q_t_e.option1,oldo2 = q_t_e.option2,oldo3 = q_t_e.option3,oldo4 = q_t_e.option4 , oldans = q_t_e.answer)
 
 @app.route("/admin/editsub/<int:s_id>" , methods=["GET","POST"])
 def editsub(s_id):
@@ -241,7 +243,33 @@ def quizedit(q_id):
         return redirect("/admin/quiz")
     return render_template("editquiz.html" , name = qte.name , ch_id = qte.chapter_id , date =qte.doq , duration= durat , remark = qte.remarks )
     
+@app.route("/admin/summarychart" , methods=["GET"])
+def adminchart():
+    subjects  = subject.query.all()
+    data = {}
+    data2 = {}
+    for sub in subjects:
+        data2[sub] = 0
+        chap = chapter.query.filter_by(subject_id = sub.id).all()
+        max_score = 0
+        for ch in chap:
+            qui = quiz.query.filter_by(chapter_id = ch.id).all()
+            for q in qui :
+                data2[sub] += scores.query.filter_by(quiz_id = q.id).count()
+                score = scores.query.filter_by(quiz_id = q.id).order_by(desc(scores.totalscore)).first()
+                if score.totalscore > max_score:
+                    max_score = score.totalscore
+        data[sub.name] = max_score 
+    subs = data.keys()
+    vals = data.values()
+    return render_template("adminsummary.html" , subs = list(subs) , vals = list(vals) , attempts = list(data2.values()))
 
+# start of user side routes 
+@app.route("/user/dashboard/<int:user_id>" , methods = ["GET"])
+def userdash(user_id):
+    current_user = user.query.get(user_id)
+    quizzes = quiz.query.all()
+    return render_template("userdash.html" , name = current_user.uname , quizzes = quizzes)
 
 if __name__ == "__main__":
     app.run(debug=True)

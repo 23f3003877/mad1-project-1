@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="/static/adminstyle.css" />
+  </head>
+  <body>
+    <!-- this is header for user page -->
+    <div class="header">
+      <a href="/" class="logout"> Logout</a>
+      <div>Welcome {{name}}</div>
+    </div>
+
+    <!-- this is main data of userdash -->
+    <div style="align-content: center">
+      <div class="subject-card" style="margin: auto">
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>NO. of Questions</th>
+            <th>Date</th>
+            <th>Duration(hh:mm:ss)</th>
+            <th>Actions</th>
+          </tr>
+          {%for quiz in quizzes%}
+          <tr>
+            <td>{{quiz.id}}</td>
+            <td>let me think</td>
+            <td>{{quiz.doq}}</td>
+            <td>{{quiz.time}}</td>
+            <td>pending</td>
+          </tr>
+          {%endfor%}
+        </table>
+      </div>
+    </div>
+  </body>
+</html>

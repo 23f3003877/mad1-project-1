@@ -68,6 +68,7 @@ class questions(db.Model):
     option3 = db.Column(db.String , nullable = False)
     option4 = db.Column(db.String , nullable = False)
     answer = db.Column(db.String , nullable = False)
+    marks = db.Column(db.Integer , nullable = False)
 
 class scores(db.Model):
     __tablename__ = "scores"
