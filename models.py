@@ -1,6 +1,5 @@
 # using sqlalchemy to create database
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -76,7 +75,7 @@ class scores(db.Model):
 
     quiz_id = db.Column( db.ForeignKey("quiz.id" , ondelete = "CASCADE") , nullable=False)
     user_id = db.Column( db.ForeignKey("user.id" , ondelete = "CASCADE") , nullable = False)
-    time_attempt = db.Column(db.Time )
+    time_attempt = db.Column(db.Date)
     totalscore = db.Column(db.Integer)
 # one to many relationship with quiz which means one quiz can have many scores
 

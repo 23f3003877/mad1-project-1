@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>View Quiz</title>
+    <link rel="stylesheet" href="/static/adminstyle.css" />
+  </head>
+  <body>
+    <div class="welcome" style="padding-top: 5%">
+      <h1>Quiz Details</h1>
+    </div>
+    <div style="align-content: center; padding-top: 4%">
+      <div class="subject-card" style="margin: auto; text-align: center">
+        <p>ID : {{qui.id}}</p>
+        <p>Subject : {{sub.name}}</p>
+        <p>Chapter : {{chap.name}}</p>
+        <p>
+          Number of questions : {% set question_count = [] %} {% for q in
+          quests%} {% if q.quiz_id == qui.id %} {% set _ =
+          question_count.append(1) %} {%endif%} {%endfor%}
+          {{question_count|length}}
+        </p>
+        <p>Release Date : {{qui.doq}}</p>
+        <p>Duration (hh:mm:ss) : {{qui.time}}</p>
+
+        <a href="/user/dashboard/{{user_id}}"
+          ><button class="buttoncurve">Close</button></a
+        >
+      </div>
+    </div>
+  </body>
+</html>

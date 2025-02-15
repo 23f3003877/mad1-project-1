@@ -1,6 +1,7 @@
 body {
   font-style: italic;
   margin: 20px;
+  background-color: antiquewhite;
 }
 .header {
   border: 2px solid black;
@@ -99,4 +100,14 @@ body {
   padding-bottom: 40px;
   border-radius: 16px;
   margin: auto;
+}
+
+.buttoncurve {
+  border-radius: 12px;
+  padding: 12px 24px;
+  background: #a1f2ff;
+  color: rgb(0, 0, 0);
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }

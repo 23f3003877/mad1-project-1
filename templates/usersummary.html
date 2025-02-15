@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Summary</title>
+    <link rel="stylesheet" href="/static/adminstyle.css" />
+    <style>
+      .layout {
+        padding-top: 5%;
+        padding-left: 5%;
+        top: 5%;
+        left: 1%;
+        width: 50%;
+        height: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>
+        <a href="/user/dashboard/{{current_user.id}}"> Home </a>
+        |
+        <a href="/scores/{{current_user.id}}">Scores </a>
+        |
+        <a href="/" class="logout"> Logout</a>
+      </div>
+      <form
+        method="post"
+        action="/user/search/{{current_user.id}}"
+        style="padding-left: 40%"
+      >
+        <label>Search</label>
+        <input name="search" />
+      </form>
+      <div>Welcome {{current_user.uname}}</div>
+    </div>
+    <div style="display: flex">
+      <div class="layout">
+        <h2 style="padding-left: 30%">Subject wise no.of quizzes attempted </h2>
+        <canvas id="myChart"></canvas>
+      </div>
+      <div class="layout" style="width: 30%; height: 30%">
+        <h2 style="padding-left: 15%">Month wise no.of quizzes attempted</h2>
+        <canvas id="myChart2"></canvas>
+      </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById("myChart");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: {{ subj | tojson }},
+          datasets: [
+            {
+              label: "Attempts",
+              data: {{ attempt | tojson }},
+              borderWidth: 1,
+
+
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
+    <script>
+      const ctx2 = document.getElementById("myChart2");
+      new Chart(ctx2, {
+        type: "pie",
+        data: {
+          labels: {{ months | tojson }},
+          datasets: [
+            {
+              label: "months",
+              data: {{ counts | tojson }},
+              borderWidth: 1,
+
+
+            },
+          ],
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
