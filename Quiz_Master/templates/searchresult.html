@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>search</title>
+    <link rel="stylesheet" href="/static/adminstyle.css" />
+  </head>
+  <body>
+    <div class="header">
+        <div>
+          <a href="/scores/{{current_user.id}}">Scores </a>
+          |
+          <a href="/user/summary/{{current_user.id}}">Summary</a>
+          |
+          <a href="/" class="logout"> Logout</a>
+        </div>
+        <div>Welcome {{current_user.uname}}</div>
+      </div>
+
+
+
+
+    {% if result_by == "nothing" %}
+    <h1 class="welcome" style="padding-top: 20%">
+      No results found. Try searching for quizzes by date of attempt or scores.
+    </h1>
+    
+      {% else %}
+      <div style="padding-top: 10%"></div>
+      <div class="subject-card" style="margin: auto">
+        <table>
+          <tr>
+            <th>Quiz ID</th>
+            <th>Quiz Name</th>
+            <th>Date of attempt</th>
+            <th>Score</th>
+          </tr>
+          {% for score in result%}
+          <tr>
+            <td>
+              {% for quiz in quizzes %} {% if quiz.id == score.quiz_id %}
+              {{quiz.id}} {%endif%} {%endfor%}
+            </td>
+            <td>
+              {% for quiz in quizzes %} {% if quiz.id == score.quiz_id %}
+              {{quiz.name}} {%endif%} {%endfor%}
+            </td>
+            <td>{{score.time_attempt}}</td>
+            <td>{{score.totalscore}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+    {%endif%}
+  </body>
+</html>

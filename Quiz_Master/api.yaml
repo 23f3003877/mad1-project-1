@@ -1,0 +1,11 @@
+info:
+  title: User Registration upi
+  description: api for creating user and storing details in database
+method: POST
+paths:
+  http://127.0.0.1:5000/api/registration:
+    json input: email , name , passwo , qual , dat
+    responces:
+      "201": if user is created
+      "409": if user already exists
+      "400": if bad request( missing or invalid data)

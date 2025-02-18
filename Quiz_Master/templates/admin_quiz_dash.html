@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Dashboard</title>
+    <link rel="stylesheet" href="/static/adminstyle.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body style="background-color: antiquewhite">
+    <br />
+    <div class="header">
+      <div>
+        <a href="/admin/dash"> Subjects </a>
+        |
+        <a href="/admin/summarychart">Summary</a>
+        |
+        <a href="/" class="logout">Logout</a>
+      </div>
+      <form method="post" style="padding-left: 700px" action="/admin/search">
+        <label>Search:</label>
+        <input name="name" />
+      </form>
+      <div>Welcome Admin</div>
+    </div>
+
+    <div class="dashboard">
+      {% for q in quiz %}
+      <div class="subject-card">
+        <table>
+          <tr>
+            <th
+              colspan="2"
+              style="
+                text-decoration: underline;
+                text-transform: uppercase;
+                padding-left: 125px;
+              "
+            >
+              quiz{{q.id}}({{q.name}})
+            </th>
+            <th colspan="1">
+              <a
+                class="fa fa-edit"
+                href="/admin/editquiz/{{q.id}}"
+                style="padding-right: 8px; color: blue; font-size: 25px"
+              >
+              </a
+              >/
+              <a
+                class="material-icons"
+                style="color: red"
+                href="/admin/del/quiz/{{q.id}}"
+                onclick="confirmDelete(event)"
+                >delete</a
+              >
+            </th>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <th>Question</th>
+            <th>Actions</th>
+          </tr>
+          {% set question_count = [] %} {% for qu in ques%} {% if qu.quiz_id ==
+          q.id %} {% set _ = question_count.append(1) %}
+          <tr>
+            <td>{{ question_count|length}}</td>
+            <td>{{qu.question}}</td>
+            <td>
+              <a href="/admin/editques/{{qu.id}}">Edit</a> /
+              <a href="/admin/delques/{{qu.id}}" onclick="confirmDelete(event)"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          {%endif%} {%endfor%}
+        </table>
+        <a href="/add/question/{{q.id}}" class="add-chapter"> + Questions </a>
+      </div>
+      {%endfor%}
+    </div>
+    <div class="add-subject">
+      <a href="/quiz/add"> + Add Quiz </a>
+    </div>
+    <script>
+      function confirmDelete(event) {
+        alert("Deleted Successfully!");
+        window.location.href = event.target.href;
+      }
+    </script>
+  </body>
+</html>

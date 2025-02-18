@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Question</title>
+    <link rel="stylesheet" href="/static/adminstyle.css" />
+  </head>
+  <body>
+    <div class="welcome" style="padding-bottom: 20px">
+      <h1>Edit Question</h1>
+    </div>
+    <div class="fieldbox">
+      <form method="post">
+        <label> Question: </label>
+        <input name="question" value="{{oldquestion}}" required />
+        <br />
+        <br />
+        <label> Option1 </label>
+        <input name="o1" value="{{oldo1}}" required />
+        <br />
+        <br />
+        <label> Option2 </label>
+        <input name="o2" value="{{oldo2}}" required />
+        <br />
+        <br />
+        <label> Option3 </label>
+        <input name="o3" value="{{oldo3}}" required />
+        <br />
+        <br />
+        <label> Option4 </label>
+        <input name="o4" value="{{oldo4}}" required />
+        <br />
+        <br />
+        <label> Answer </label>
+        <input name="ans" value="{{oldans}}" required />
+        <br />
+        <br />
+        <label> Marks </label>
+        <input name="mark" value="{{oldmark}}" required />
+        <br />
+        <br />
+        <button class="buttoncurve">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>

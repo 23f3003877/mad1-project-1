@@ -1,0 +1,110 @@
+body {
+  font-style: italic;
+  margin: 20px;
+  background-color: antiquewhite;
+}
+.header {
+  border: 2px solid black;
+  font-weight: bold;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 15px;
+  background-color: #a1f2ff;
+}
+.header a {
+  text-decoration: none;
+  color: blue;
+  font-weight: bold;
+}
+.header a.logout {
+  color: red;
+}
+.dashboard {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping of elements */
+  gap: 30px; /* Space between elements */
+  margin-top: 30px;
+  margin-left: 70px;
+  justify-content: flex-start; /* Align elements to the left */
+}
+.subject-card {
+  box-shadow: 8px 8px 6px;
+  border: 2px solid rgb(255, 128, 0);
+  border-radius: 15px;
+  padding: 15px;
+  width: 45%; /* Make each card take about 45% of the row */
+  background-color: #f9f9f900;
+  box-sizing: border-box; /* Include padding and border in the width */
+}
+.subject-card table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 10px;
+}
+.subject-card th,
+.subject-card td {
+  border: 0px solid rgb(251, 0, 255);
+  padding: 10px;
+  text-align: center;
+}
+.subject-card th {
+  background-color: #e0f7fa;
+  text-align: center;
+  font-size: 1.2em;
+}
+.add-chapter {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: pink;
+  font-weight: bold;
+  color: black;
+  text-decoration: none;
+}
+.add-chapter:hover {
+  background-color: #f5b5b5;
+}
+.add-subject {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 30px;
+}
+.add-subject a {
+  color: rgb(72, 0, 255);
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  font-style: normal;
+}
+
+.welcome {
+  text-align: center;
+  text-shadow: 4px 4px 3px rgba(8, 8, 8, 0.5);
+}
+
+.fieldbox {
+  text-align: center;
+  box-shadow: 8px 8px 6px;
+  background-color: rgba(164, 124, 216, 0.462);
+  border: 4px solid black;
+  width: 400px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  border-radius: 16px;
+  margin: auto;
+}
+
+.buttoncurve {
+  border-radius: 12px;
+  padding: 10px 20px;
+  background: #a1f2ff;
+  color: rgb(0, 0, 0);
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}

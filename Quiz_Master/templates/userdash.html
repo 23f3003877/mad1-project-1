@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="/static/adminstyle.css" />
+  </head>
+  <body>
+    <!-- this is header for user page -->
+    <div class="header">
+      <div>
+        <a href="/scores/{{user_id}}">Scores </a>
+        |
+        <a href="/user/summary/{{user_id}}">Summary</a>
+        |
+        <a href="/" class="logout"> Logout</a>
+      </div>
+      <form
+        method="post"
+        action="/user/search/{{user_id}}"
+        style="padding-left: 40%"
+      >
+        <label>Search</label>
+        <input name="search" />
+      </form>
+      <div>Welcome {{name}}</div>
+    </div>
+
+    <!-- this is main data of userdash -->
+    <div style="align-content: center; padding-top: 10%">
+      <div class="subject-card" style="margin: auto; width: 70%">
+        <table>
+          <tr>
+            <td colspan="5">
+              <h2>Quizzes</h2>
+            </td>
+          </tr>
+          <tr>
+            <th>ID</th>
+            <th>NO. of Questions</th>
+            <th>Date</th>
+            <th>Duration(hh:mm:ss)</th>
+            <th>Actions</th>
+          </tr>
+          {%for quiz in quizzes%}
+          <tr>
+            <td>{{quiz.id}}</td>
+            <td>
+              {% set question_count = [] %} {% for q in quests%} {% if q.quiz_id
+              == quiz.id %} {% set _ = question_count.append(1) %} {%endif%}
+              {%endfor%} {{question_count|length}}
+            </td>
+            <td>{{quiz.doq}}</td>
+            <td>{{quiz.time}}</td>
+            <td>
+              <a href="/quiz/view/{{quiz.id}}/{{user_id}}"
+                ><button class="buttoncurve">View</button></a
+              >
+              <a href="/startquiz/{{user_id}}/{{quiz.id}}"
+                ><button class="buttoncurve">Start</button></a
+              >
+            </td>
+          </tr>
+          {%endfor%}
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
