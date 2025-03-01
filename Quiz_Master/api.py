@@ -15,10 +15,11 @@ class adduser(Resource):
         args = parser.parse_args()
         if user.query.filter_by(username=args["email"]).first():
             return {"message": "User already exists"}, 409
+        if admin.query.filter_by(adminname=args["email"]).first():
+            return {"message": "User already exists as admins"}, 409
         new_user = user(username = args["email"] ,password = args["passwo"], uname = args["name"] , qualification = args["qual"] , dob = args["dat"])
         db.session.add(new_user)
         db.session.commit()
-
         return 201
 api = Api()
 api.add_resource(adduser,"/api/registration")

@@ -54,11 +54,11 @@ def registration():
             "dat":date_str
         }
         url = 'http://127.0.0.1:5000/api/registration'              #this is url for api
-        responce = requests.post(url , json= field)
+        response = requests.post(url , json= field)
         # if registered then redirect them to login page 
-        if responce.status_code == 201:
+        if  response.status_code == 200:
             return redirect("/")
-        elif responce.status_code == 409:
+        elif  response.status_code == 409:
             return render_template("registration.html" , already=True)
     return render_template("registration.html" , already=False)
 
